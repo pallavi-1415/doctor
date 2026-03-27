@@ -193,7 +193,7 @@
 
         <!-- Mobile Nav Menu Overlay -->
         <div id="mobile-menu"
-            class="fixed inset-0 bg-[#FDFCF6] z-[110] translate-x-full lg:hidden flex flex-col p-8 space-y-8">
+            class="fixed inset-0 bg-[#FDFCF6] z-[110] translate-x-full lg:hidden flex flex-col p-8 space-y-8 overflow-y-auto pb-24">
             <div class="flex justify-between items-center">
                 <span class="text-xl font-serif font-bold text-[#0F172A]">AURA</span>
                 <button onclick="toggleMobileMenu()" class="p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
@@ -307,9 +307,23 @@
             if (mobileAuthContainer) {
                 if (!APP_STATE.currentUser) {
                     mobileAuthContainer.innerHTML = `
-                        <div class="h-[1px] w-full bg-slate-100 mt-2 mb-2"></div>
+                        <div class="h-[1px] w-full bg-slate-100 mt-2 mb-4"></div>
+                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Patient Portal</div>
                         <button onclick="renderView('signup'); toggleMobileMenu();" class="text-2xl font-serif text-left text-teal-600 pb-2">Register</button>
-                        <button onclick="renderView('login', {role: 'patient'}); toggleMobileMenu();" class="text-2xl font-serif text-left text-[#0F172A]">Sign In</button>
+                        <button onclick="renderView('login', {role: 'patient'}); toggleMobileMenu();" class="text-2xl font-serif text-left text-[#0F172A] pb-6">Sign In</button>
+                        
+                        <div class="h-[1px] w-full bg-slate-100 mb-6"></div>
+                        <button onclick="document.getElementById('mobile-doctors-list').classList.toggle('hidden'); document.getElementById('mobile-doc-chevron').classList.toggle('rotate-180');" class="flex justify-between items-center w-full mb-4">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Physician Network</span>
+                            <i data-lucide="chevron-down" id="mobile-doc-chevron" class="w-4 h-4 text-slate-400 transition-transform duration-300"></i>
+                        </button>
+                        <div id="mobile-doctors-list" class="hidden space-y-4 max-h-[30vh] overflow-y-auto pr-2 pb-6">
+                            ${DOCTORS.map(doc => `<button onclick="renderView('login', {role: 'doctor', id: ${doc.id}}); toggleMobileMenu();" class="w-full text-left flex items-center gap-4 group/item"><img src="${doc.image}" class="w-10 h-10 rounded-full object-cover border-2 border-transparent group-hover/item:border-teal-500 transition-colors" /><div class="text-base font-bold text-[#0F172A]">${doc.name}</div></button>`).join('')}
+                        </div>
+
+                        <div class="h-[1px] w-full bg-slate-100 mb-6"></div>
+                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Administration</div>
+                        <button onclick="renderView('login', {role: 'admin'}); toggleMobileMenu();" class="text-2xl font-serif text-left text-slate-600 pb-4">Admin Sign In</button>
                     `;
                 } else {
                     mobileAuthContainer.innerHTML = `
