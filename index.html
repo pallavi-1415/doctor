@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aura Medical | Quiet Luxury Healthcare</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -205,6 +205,7 @@
                     class="text-2xl font-serif text-left text-slate-900 border-b border-slate-100 pb-4">Directory</button>
                 <button onclick="handleDashboardNavigation(); toggleMobileMenu();"
                     class="text-2xl font-serif text-left text-slate-900 border-b border-slate-100 pb-4">My Aura</button>
+                <div id="mobile-auth-btn-container" class="flex flex-col space-y-6"></div>
             </div>
         </div>
     </nav>
@@ -213,7 +214,7 @@
     <main id="app-container" class="min-h-screen"></main>
 
     <!-- Toast Container -->
-    <div id="toast-container" class="fixed bottom-6 right-6 z-[200] flex flex-col gap-4 pointer-events-none"></div>
+    <div id="toast-container" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 z-[200] flex flex-col gap-4 pointer-events-none items-center sm:items-end w-[calc(100%-2rem)] sm:w-auto"></div>
 
     <script>
         // --- Data & Central State ---
@@ -265,11 +266,11 @@
             }
             if (!APP_STATE.currentUser) {
                 authSection.innerHTML = `
-                    <div class="flex items-center gap-3 md:gap-6">
+                    <div class="hidden lg:flex items-center gap-3 md:gap-6">
                         <button onclick="renderView('signup')" class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-teal-600 transition-colors">Register</button>
                         <div class="relative group">
                             <button class="btn-aura bg-[#0F172A] text-white px-4 md:px-8 py-2 md:py-3 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest shadow-xl">Sign In</button>
-                            <div class="dropdown-menu absolute right-0 top-full mt-4 w-64 bg-white rounded-3xl shadow-2xl border border-slate-100 p-3 hidden group-hover:block animate-in fade-in slide-in-from-top-2">
+                            <div class="dropdown-menu absolute right-[-1rem] sm:right-0 top-full mt-4 w-64 max-w-[calc(100vw-2rem)] bg-white rounded-3xl shadow-2xl border border-slate-100 p-3 hidden group-hover:block animate-in fade-in slide-in-from-top-2">
                                 <div class="px-4 py-2 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Select Portal</div>
                                 <button onclick="renderView('login', {role: 'patient'})" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-slate-50 flex items-center gap-3 group/item mb-1">
                                     <div class="w-8 h-8 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center"><i data-lucide="user" class="w-4 h-4"></i></div>
@@ -301,13 +302,30 @@
                     </div>
                 `;
             }
+
+            const mobileAuthContainer = document.getElementById('mobile-auth-btn-container');
+            if (mobileAuthContainer) {
+                if (!APP_STATE.currentUser) {
+                    mobileAuthContainer.innerHTML = `
+                        <div class="h-[1px] w-full bg-slate-100 mt-2 mb-2"></div>
+                        <button onclick="renderView('signup'); toggleMobileMenu();" class="text-2xl font-serif text-left text-teal-600 pb-2">Register</button>
+                        <button onclick="renderView('login', {role: 'patient'}); toggleMobileMenu();" class="text-2xl font-serif text-left text-[#0F172A]">Sign In</button>
+                    `;
+                } else {
+                    mobileAuthContainer.innerHTML = `
+                        <div class="h-[1px] w-full bg-slate-100 mt-2 mb-2"></div>
+                        <button onclick="logout(); toggleMobileMenu();" class="text-2xl font-serif text-left text-red-500">Sign Out</button>
+                    `;
+                }
+            }
+
             lucide.createIcons();
         }
 
         function showToast(title, message, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = `min-w-[300px] max-w-sm bg-white border border-slate-100 shadow-2xl rounded-2xl p-4 flex gap-4 items-start animate-in slide-in-from-bottom-5 fade-in duration-300 pointer-events-auto relative overflow-hidden transition-all`;
+            toast.className = `w-full sm:min-w-[300px] sm:max-w-sm bg-white border border-slate-100 shadow-2xl rounded-2xl p-4 flex gap-4 items-start animate-in slide-in-from-bottom-5 fade-in duration-300 pointer-events-auto relative overflow-hidden transition-all`;
             toast.innerHTML = `
                 <div class="absolute left-0 top-0 bottom-0 w-1.5 ${isError ? 'bg-red-500' : 'bg-teal-500'}"></div>
                 <div class="w-8 h-8 rounded-full ${isError ? 'bg-red-50 text-red-500' : 'bg-teal-50 text-teal-600'} flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -743,7 +761,7 @@
 
         function DashSidebar(links) {
             return `
-            <aside class="w-full lg:w-72 bg-white border-r border-slate-100 flex-shrink-0 lg:h-screen lg:sticky lg:top-0 pt-28 lg:pt-32 pb-10 px-6 hidden lg:flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-[90]">
+            <aside class="w-full lg:w-72 bg-white border-b lg:border-r border-slate-100 flex-shrink-0 lg:h-screen lg:sticky lg:top-0 pt-24 lg:pt-32 pb-8 lg:pb-10 px-6 flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-[90]">
                 <div class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-6 px-4">Portal Navigation</div>
                 <nav class="space-y-2 flex-1">
                     ${links.map(l => `
@@ -753,15 +771,21 @@
                         </button>
                     `).join('')}
                 </nav>
-                <button onclick="logout()" class="w-full text-left px-5 py-3 rounded-2xl flex items-center gap-4 text-sm font-bold text-slate-500 hover:bg-red-50 hover:text-red-500 transition-all group mt-6"><i data-lucide="log-out" class="w-5 h-5 text-slate-400 group-hover:text-red-400"></i>Sign Out</button>
-            </aside>`;
+                <button onclick="logout()" class="w-full text-left px-5 py-3 rounded-2xl hidden lg:flex items-center gap-4 text-sm font-bold text-slate-500 hover:bg-red-50 hover:text-red-500 transition-all group mt-6"><i data-lucide="log-out" class="w-5 h-5 text-slate-400 group-hover:text-red-400"></i>Sign Out</button>
+            </aside>
+            <!-- Floating Mobile Logout Container -->
+            <div class="fixed bottom-6 right-6 z-[150] lg:hidden animate-in zoom-in duration-300">
+                <button onclick="logout()" class="w-14 h-14 bg-white text-red-500 rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 hover:bg-red-50 transition-all">
+                    <i data-lucide="log-out" class="w-6 h-6"></i>
+                </button>
+            </div>`;
         }
 
         function renderPatientDashboard() {
             const myApps = APP_STATE.appointments.filter(a => a.patientName === APP_STATE.currentUser.name);
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(PATIENT_LINKS('health'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-5xl mx-auto space-y-10">
                         <header class="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-4 text-center sm:text-left"><div class="space-y-2"><span class="text-teal-600 font-bold uppercase text-[10px] tracking-widest">Membership Core</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A]">Welcome, ${APP_STATE.currentUser.name}</h1></div><div class="text-center sm:text-right"><div class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Status</div><span class="px-4 py-1.5 bg-teal-50 text-teal-600 border border-teal-100 rounded-full text-[10px] font-bold uppercase tracking-widest">Active Member</span></div></header>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -786,7 +810,7 @@
             const myApps = APP_STATE.appointments.filter(a => a.doctorId === docId);
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(DOCTOR_LINKS('agenda'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-5xl mx-auto space-y-10">
                         <header><span class="text-indigo-600 font-bold uppercase text-[10px] tracking-widest">Physician Portal</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A] mt-2">${APP_STATE.currentUser.name}</h1></header>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -811,7 +835,7 @@
         function renderAdminDashboard() {
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(ADMIN_LINKS('metrics'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-6xl mx-auto space-y-10">
                         <header><span class="text-slate-500 font-bold uppercase text-[10px] tracking-widest">Global Control</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A] mt-2">System Oversight</h1></header>
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -838,7 +862,7 @@
             const myApps = APP_STATE.appointments.filter(a => a.patientName === APP_STATE.currentUser.name);
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(PATIENT_LINKS('consults'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-5xl mx-auto space-y-10">
                         <header><span class="text-teal-600 font-bold uppercase text-[10px] tracking-widest">Consultations</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A] mt-2">All Sessions</h1></header>
                         <div class="bento-card p-8 bg-white/70 backdrop-blur-xl">
@@ -854,7 +878,7 @@
         function renderPatientRecords() {
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(PATIENT_LINKS('records'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-5xl mx-auto space-y-10">
                         <header><span class="text-teal-600 font-bold uppercase text-[10px] tracking-widest">Medical Records</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A] mt-2">Clinical Vault</h1></header>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -885,7 +909,7 @@
 
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(DOCTOR_LINKS('roster'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-5xl mx-auto space-y-10">
                         <header><span class="text-indigo-600 font-bold uppercase text-[10px] tracking-widest">Faculty Directory</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A] mt-2">Patient Roster</h1></header>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -917,7 +941,7 @@
 
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(DOCTOR_LINKS('notes'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-5xl mx-auto space-y-10">
                         <header><span class="text-indigo-600 font-bold uppercase text-[10px] tracking-widest">Medical Documentation</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A] mt-2">Clinical Notes</h1></header>
                         
@@ -954,7 +978,7 @@
         function renderAdminFaculty() {
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(ADMIN_LINKS('faculty'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-6xl mx-auto space-y-10">
                         <header><span class="text-slate-500 font-bold uppercase text-[10px] tracking-widest">Faculty Control</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A] mt-2">Manage Practitioners</h1></header>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -968,7 +992,7 @@
         function renderAdminAudit() {
             return `<div class="flex flex-col lg:flex-row min-h-screen bg-[#FDFCF6]">
                 ${DashSidebar(ADMIN_LINKS('audit'))}
-                <main class="flex-1 pt-32 md:pt-40 lg:pt-32 pb-24 px-6 lg:px-12">
+                <main class="flex-1 pt-6 lg:pt-32 pb-24 px-6 lg:px-12">
                     <div class="max-w-5xl mx-auto space-y-10">
                         <header><span class="text-slate-500 font-bold uppercase text-[10px] tracking-widest">System Overseer</span><h1 class="text-3xl md:text-5xl font-serif text-[#0F172A] mt-2">Security & Audit Logs</h1></header>
                         
