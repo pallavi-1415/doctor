@@ -25,7 +25,7 @@ app.post('/api/send-receipt', async (req, res) => {
 
     const mailOptions = {
         from: '"Aura Medical App" <pallaviramoliya1415@gmail.com>',
-        to: email, 
+        to: email,
         subject: 'Payment Receipt: Clinic Session Confirmed',
         html: `
             <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px;">
@@ -133,6 +133,7 @@ app.post('/api/send-registration', async (req, res) => {
 
 const PORT = 3000;
 app.listen(PORT, () => {
+    np
     console.log(`=================================`);
     console.log(`Server is running on http://localhost:${PORT}`);
     console.log('Server is READY to send emails!');

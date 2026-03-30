@@ -195,7 +195,7 @@ function handleSignup(e) {
     renderView('patient_dashboard');
 
     // Send Welcome Email
-    fetch('http://localhost:3000/api/send-registration', {
+    fetch('/api/send-registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, name })
@@ -977,7 +977,7 @@ function processPayment(event, doctorId, dateVal, slot) {
         // Call the backend to send the email receipt via Nodemailer
         const doc = DOCTORS.find(d => d.id === doctorId);
         
-        fetch('http://localhost:3000/api/send-receipt', {
+        fetch('/api/send-receipt', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
