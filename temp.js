@@ -808,4 +808,4 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderView('home');
         });
-    
+        }

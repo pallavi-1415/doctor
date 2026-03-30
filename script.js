@@ -193,6 +193,24 @@ function handleSignup(e) {
     updateAuthUI();
     showToast('Registration Successful', 'Welcome to the Aura Medical network.');
     renderView('patient_dashboard');
+
+    // Send Welcome Email
+    fetch('http://localhost:3000/api/send-registration', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name })
+    }).then(res => res.json())
+      .then(data => {
+          if (data.success) {
+              showToast('Vault Secured', 'Your welcome receipt has been dispatched.');
+          } else {
+              showToast('Notice', 'Account active, but email dispatch failed.', true);
+          }
+      })
+      .catch(err => {
+          console.error('Email Dispatch Error:', err);
+          showToast('Service Offline', 'The email server is not responding. Please run "npm run dev".', true);
+      });
 }
 
 function logout() { APP_STATE.currentUser = null; saveState(); updateAuthUI(); renderView('home'); }
@@ -955,6 +973,36 @@ function processPayment(event, doctorId, dateVal, slot) {
         saveState();
         renderView('confirmation');
         showToast("Transaction Approved", "Payment accepted. Your session is booked successfully.");
+
+        // Call the backend to send the email receipt via Nodemailer
+        const doc = DOCTORS.find(d => d.id === doctorId);
+        
+        fetch('http://localhost:3000/api/send-receipt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: APP_STATE.currentUser.email || 'patient@example.com', // Fallback if no email
+                patientName: APP_STATE.currentUser.name,
+                doctorName: doc ? doc.name : 'Aura Medical Practitioner',
+                date: dateVal,
+                slot: slot,
+                amount: doc ? doc.price : '₹0'
+            })
+        }).then(res => res.json())
+          .then(data => {
+              if (data.success) {
+                  showToast('Receipt Sent', 'A clinical receipt has been sent to your email.');
+              } else {
+                  showToast('Payment Alert', 'Transaction recorded, but email receipt failed.', true);
+              }
+          })
+          .catch(err => {
+              console.error('Receipt error:', err);
+              showToast('Server Offline', 'The email server is not active. Please run "npm run dev".', true);
+          });
+          
     }, 2500);
 }
 
