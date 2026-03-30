@@ -281,17 +281,17 @@ function renderHome() {
                             <div class="flex items-center justify-center lg:justify-start gap-3 text-teal-600 font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs">
                                 <div class="hidden md:block w-12 h-[1px] bg-teal-600"></div> The Global Standard of Concierge Medicine
                             </div>
-                            <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-[#0F172A] leading-tight md:leading-[0.95] tracking-tighter">
+                            <h1 class="text-3xl md:text-6xl lg:text-7xl font-serif text-[#0F172A] leading-tight md:leading-[0.95] tracking-tighter">
                                 Clinical Precision, <br class="hidden md:block" /> <span class="italic text-teal-700">Artful Care.</span>
                             </h1>
-                            <p class="text-base md:text-lg text-slate-500 font-light leading-relaxed max-w-lg mx-auto lg:mx-0">Bespoke healthcare management paired with absolute discretion for the discerning individual.</p>
+                            <p class="text-sm md:text-lg text-slate-500 font-light leading-relaxed max-w-lg mx-auto lg:mx-0">Bespoke healthcare management paired with absolute discretion for the discerning individual.</p>
                             <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-4 md:gap-6">
-                                <button onclick="renderView('doctors')" class="w-full sm:w-auto btn-aura bg-[#0F172A] text-white px-8 py-4 rounded-full font-medium flex items-center justify-center gap-3 shadow-xl">Explore Directory <i data-lucide="arrow-right" class="w-5 h-5"></i></button>
-                                <div class="flex items-center gap-4"><span class="text-[10px] md:text-xs font-medium text-slate-400 italic">Trusted by visionaries worldwide.</span></div>
+                                <button onclick="renderView('doctors')" class="w-full sm:w-auto btn-aura bg-[#0F172A] text-white px-8 py-3.5 md:py-4 rounded-full font-medium flex items-center justify-center gap-3 shadow-xl text-sm md:text-base">Explore Directory <i data-lucide="arrow-right" class="w-4 h-4 md:w-5 md:h-5"></i></button>
+                                <div class="flex items-center gap-4"><span class="text-[9px] md:text-xs font-medium text-slate-400 italic">Trusted by visionaries worldwide.</span></div>
                             </div>
                         </div>
-                        <div class="lg:col-span-5 relative flex justify-center h-[300px] md:h-[400px] order-1 lg:order-2">
-                            <div id="hero-slider" class="relative w-full md:w-[70%] h-full rounded-[40px] md:rounded-[60px] overflow-hidden shadow-2xl border-[6px] md:border-[10px] border-white transition-all hover:scale-[1.02]">
+                        <div class="lg:col-span-5 relative flex justify-center h-[280px] md:h-[400px] order-1 lg:order-2">
+                            <div id="hero-slider" class="relative w-full sm:w-[85%] md:w-[75%] h-full rounded-[30px] md:rounded-[60px] overflow-hidden shadow-2xl border-[4px] md:border-[10px] border-white transition-all hover:scale-[1.02]">
                                 <div class="slider-item active"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" /></div>
                                 <div class="slider-item"><img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" /></div>
                                 <div class="slider-item"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" /></div>
@@ -444,10 +444,10 @@ function renderDoctors(params = null) {
                 <div class="pt-32 md:pt-40 pb-24 md:pb-32 px-6 bg-[#FDFCF6] min-h-screen">
                     <div class="max-w-7xl mx-auto space-y-10 md:space-y-12">
                         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 border-b border-slate-100 pb-8 md:pb-12 text-center md:text-left">
-                            <div class="space-y-3 md:space-y-4"><span class="text-teal-600 font-bold tracking-[0.4em] uppercase text-[10px]">The Directory</span><h2 class="font-serif text-4xl md:text-5xl text-slate-900">Our <span class="italic text-teal-700">Faculty</span></h2></div>
-                            <div class="relative w-full md:w-auto"><i data-lucide="search" class="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300"></i><input id="directory-search-input" type="text" placeholder="Search faculty..." oninput="filterInRealTime(this)" value="${initialQuery}" class="pl-14 pr-8 py-4 md:py-5 bg-white border border-slate-100 rounded-full w-full md:w-96 text-sm focus:ring-2 focus:ring-teal-500 outline-none shadow-sm" /></div>
+                            <div class="space-y-2 md:space-y-4"><span class="text-teal-600 font-bold tracking-[0.4em] uppercase text-[9px] md:text-[10px]">The Directory</span><h2 class="font-serif text-3xl md:text-5xl text-slate-900">Our <span class="italic text-teal-700">Faculty</span></h2></div>
+                            <div class="relative w-full md:w-auto"><i data-lucide="search" class="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300"></i><input id="directory-search-input" type="text" placeholder="Search faculty..." oninput="filterInRealTime(this)" value="${initialQuery}" class="pl-14 pr-8 py-3.5 md:py-5 bg-white border border-slate-100 rounded-full w-full md:w-96 text-sm focus:ring-2 focus:ring-teal-500 outline-none shadow-sm" /></div>
                         </div>
-                        <div id="doctor-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                        <div id="doctor-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                             ${filtered.map(doc => renderDoctorCard(doc)).join('')}
                         </div>
                     </div>
@@ -465,10 +465,10 @@ function renderLogin(params) {
                         <div class="absolute -top-20 -right-20 w-40 h-40 bg-teal-500/10 blur-3xl rounded-full pointer-events-none"></div>
                         <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none"></div>
                         <div class="text-center relative z-10">
-                            ${docInfo ? `<img src="${docInfo.image}" class="w-20 h-20 rounded-full object-cover mx-auto mb-6 shadow-md border-4 border-white"/>` : `<div class="w-16 h-16 bg-[#0F172A] rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-md"><i data-lucide="${isPatient ? 'user' : 'shield'}" class="w-6 h-6 text-white"></i></div>`}
-                            <span class="text-teal-600 font-bold tracking-[0.2em] uppercase text-[10px]">${title}</span>
-                            <h2 class="text-3xl md:text-4xl font-serif text-slate-900 mt-2">Secure <span class="italic text-teal-700">Access</span></h2>
-                            ${docInfo ? `<p class="text-xs font-bold text-slate-500 mt-2">${docInfo.name}</p>` : ''}
+                            ${docInfo ? `<img src="${docInfo.image}" class="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover mx-auto mb-4 md:mb-6 shadow-md border-4 border-white"/>` : `<div class="w-14 h-14 md:w-16 md:h-16 bg-[#0F172A] rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 border-4 border-white shadow-md"><i data-lucide="${isPatient ? 'user' : 'shield'}" class="w-6 h-6 text-white"></i></div>`}
+                            <span class="text-teal-600 font-bold tracking-[0.2em] uppercase text-[9px] md:text-[10px] text-center block">${title}</span>
+                            <h2 class="text-2xl md:text-4xl font-serif text-slate-900 mt-2">Secure <span class="italic text-teal-700">Access</span></h2>
+                            ${docInfo ? `<p class="text-[10px] md:text-sm font-bold text-slate-500 mt-2">${docInfo.name}</p>` : ''}
                         </div>
                         <form onsubmit="handleLoginSubmit(event, '${params.role}', ${params.id || null})" class="space-y-4 md:space-y-6 relative z-10 mt-8">
                             ${isPatient
@@ -870,9 +870,9 @@ function renderCheckout(params) {
     return `
                 <div class="pt-32 md:pt-40 pb-24 md:pb-32 px-6 bg-[#FDFCF6] min-h-screen">
                     <div class="max-w-4xl mx-auto space-y-10 md:space-y-12">
-                        <div class="text-center">
-                            <span class="text-teal-600 font-bold uppercase text-[10px] tracking-widest">Secure Checkout</span>
-                            <h1 class="text-3xl md:text-5xl font-serif text-slate-900 mt-2">Finalize <span class="italic text-teal-700">Reservation</span></h1>
+                        <div class="text-center px-4">
+                            <span class="text-teal-600 font-bold uppercase text-[9px] md:text-[10px] tracking-widest">Secure Checkout</span>
+                            <h1 class="text-2xl md:text-5xl font-serif text-slate-900 mt-1 md:mt-2">Finalize <span class="italic text-teal-700">Reservation</span></h1>
                         </div>
                         
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -901,11 +901,11 @@ function renderCheckout(params) {
                             <!-- Payment Form -->
                             <div class="bento-card p-8 md:p-10 bg-white shadow-xl border border-teal-50 relative overflow-hidden">
                                 <form id="payment-form" onsubmit="processPayment(event, ${doc.id}, '${params.date}', '${params.slot}')" class="space-y-6 relative z-10">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h3 class="text-xl font-serif text-slate-900">Payment Protocol</h3>
-                                        <i data-lucide="shield-check" class="w-6 h-6 text-teal-600"></i>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-lg md:text-xl font-serif text-slate-900">Payment Protocol</h3>
+                                        <i data-lucide="shield-check" class="w-5 h-5 md:w-6 md:h-6 text-teal-600"></i>
                                     </div>
-                                    <p class="text-xs text-slate-400 mb-6 italic flex items-center flex-wrap">Use test card <span class="ml-1 px-2 py-0.5 bg-slate-100 font-mono text-slate-600 rounded">1234 1234 1234 1234</span> to proceed. <span class="text-[9px] uppercase font-bold tracking-widest text-teal-500 bg-teal-50 px-2 py-0.5 rounded ml-2">Demo Mode</span></p>
+                                    <p class="text-[10px] text-slate-400 mb-6 italic leading-relaxed">Use test card <span class="px-1.5 py-0.5 bg-slate-100 font-mono text-slate-600 rounded">1234 1234 1234 1234</span> to proceed. <span class="text-[8px] uppercase font-bold tracking-widest text-teal-500 bg-teal-50 px-1.5 py-0.5 rounded ml-1">Demo Mode</span></p>
 
                                     <div class="space-y-5">
                                         <div class="space-y-2">

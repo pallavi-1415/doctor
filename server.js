@@ -133,7 +133,6 @@ app.post('/api/send-registration', async (req, res) => {
 
 const PORT = 3000;
 app.listen(PORT, () => {
-    np
     console.log(`=================================`);
     console.log(`Server is running on http://localhost:${PORT}`);
     console.log('Server is READY to send emails!');
